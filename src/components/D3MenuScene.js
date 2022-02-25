@@ -10,6 +10,7 @@ export default function D3MenuScene() {
 
     const canvas = useRef();
 
+
     const camReference = useSpringRef();
     const camPos = useSpring({
         ref: camReference,
@@ -22,11 +23,13 @@ export default function D3MenuScene() {
     camReference.start()
     const camPosition = [0, 2, 50];
 
+
     return <>
 
             <VRCanvas  concurrent gl={{ alpha: true }} pixelRatio={[1, 1.5]} VRCamera={{position: [0,2,10]}} camera={{ position: [0, 2, 10], fov: 50 }}>
 
                 <DefaultXRControllers />
+
             <OrbitControls maxAzimuthAngle={0} maxPolarAngle={0} minAzimuthAngle={Math.PI / 2}
                            minPolarAngle={Math.PI / 2}/>
 
@@ -40,7 +43,9 @@ export default function D3MenuScene() {
             <Suspense fallback={null}>
 
 
-                <HexaBallCV cam={cam} canvas={canvas} position={[0, -3.5, 0]}/>
+
+                <HexaBallCV cam={cam} position={[0, -3.5, 0]}/>
+
 
                 <Environment preset="dawn"/>
             </Suspense>
