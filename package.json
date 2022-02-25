@@ -17,7 +17,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "HTTPS=true react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=./serverreact.cert&&set SSL_KEY_FILE=./serverreact.key&&react-scripts start",
 
     "build": "react-scripts build",
     "test": "react-scripts test",

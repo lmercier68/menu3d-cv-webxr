@@ -1,17 +1,14 @@
-import React, {Suspense, useState} from "react";
-import {render} from "react-dom";
-import {Canvas} from "@react-three/fiber";
+import React, {Suspense, useEffect, useRef, useState} from "react";
 import {OrbitControls, Reflector, useTexture, Environment, Text, useContextBridge, MeshReflectorMaterial} from '@react-three/drei'
 import HexaBallCV from "./HexaBallCV"
-import * as THREE from "three";
 import {config, useSpring, useSpringRef} from "@react-spring/three";
-import {VRCanvas, Interactive } from '@react-three/xr'
+import {VRCanvas, DefaultXRControllers } from '@react-three/xr'
+import {Canvas, useThree} from "@react-three/fiber";
 
 export default function D3MenuScene() {
-    // const camPosition =[0,2,20];
-    const actif = false;
-
     const cam = [0, 2, 20];
+
+    const canvas = useRef();
 
     const camReference = useSpringRef();
     const camPos = useSpring({
@@ -25,13 +22,11 @@ export default function D3MenuScene() {
     camReference.start()
     const camPosition = [0, 2, 50];
 
-
-
-
-
     return <>
 
-            <VRCanvas concurrent gl={{ alpha: true }} pixelRatio={[1, 1.5]} camera={{ position: [0, 2, 10], fov: 50 }}>
+            <VRCanvas  concurrent gl={{ alpha: true }} pixelRatio={[1, 1.5]} VRCamera={{position: [0,2,10]}} camera={{ position: [0, 2, 10], fov: 50 }}>
+
+                <DefaultXRControllers />
             <OrbitControls maxAzimuthAngle={0} maxPolarAngle={0} minAzimuthAngle={Math.PI / 2}
                            minPolarAngle={Math.PI / 2}/>
 
@@ -45,7 +40,7 @@ export default function D3MenuScene() {
             <Suspense fallback={null}>
 
 
-                <HexaBallCV cam={cam} position={[0, -3.5, 0]}/>
+                <HexaBallCV cam={cam} canvas={canvas} position={[0, -3.5, 0]}/>
 
                 <Environment preset="dawn"/>
             </Suspense>
