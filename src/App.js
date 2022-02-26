@@ -1,25 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import './components/D3MenuScene';
+
+import "./themes/css/d3scene.css";
+import D3MenuScene from "./components/D3MenuScene";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <div className="toto"></div>
+            toto
+            <div id="D3scene">
+
+                <D3MenuScene id="D3scene"/>
+            </div>
+        </div>
+    );
+
 }
 
 export default App;
