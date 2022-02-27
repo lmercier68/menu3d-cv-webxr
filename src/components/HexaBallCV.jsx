@@ -45,44 +45,6 @@ export default function Model({...props}) {
     const { controllers, player, isPresenting } = useXR();
 
 
-    const ft =useLoader(TextureLoader, './assets/bkg3_front5.png');
-    const bk = useLoader(TextureLoader, './assets/bkg3_back6.png');
-    const up = useLoader(TextureLoader, './assets/bkg3_top3.png');
-    const dn = useLoader(TextureLoader, './assets/bkg3_bottom4.png');
-    const rt =useLoader(TextureLoader, './assets/bkg3_right1.png');
-    const lf = useLoader(TextureLoader, './assets/bkg3_left2.png');
-
-    function createPathStrings(filename) {
-
-
-        const fileType = ".png";
-        const sides = [ft, bk, up, dn, rt, lf];
-        const pathStings = sides.map(side => {
-            return side;
-        });
-        return pathStings;
-    }
-    let skyboxImage = "purplenebula";
-    function createMaterialArray(filename) {
-        const skyboxImagepaths = createPathStrings(filename);
-        const materialArray = skyboxImagepaths.map(image => {
-            let texture = new THREE.TextureLoader().load(image);
-            return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
-        });
-        return materialArray;
-    }
-    function init() {
-
-        const materialArray = createMaterialArray(skyboxImage);
-
-        skybox = new THREE.Mesh(skyboxGeo, materialArray);
-
-
-    }
-
-
-    const skybox = useRef();
-
     player.position.set(0,0,10)
     console.log("props.cam pos " + JSON.stringify( player.position));
 
@@ -281,16 +243,9 @@ export default function Model({...props}) {
     });
 
     let rotationSpeed = 0.01;
-    function animate() {
-        skybox.rotation.x += 0.005;
-        skybox.rotation.y += 0.005;
-
-
-    }
 
     return (
         <>
-        <boxGeometry ref={skybox} args={[10000, 10000, 10000]} />
         <animated.group ref={hexaBall} {...props} dispose={null} position={ballPosition}>
 
             <animated.mesh ref={downBall} geometry={nodes.ballDown.geometry} material={nodes.ballDown.material}
