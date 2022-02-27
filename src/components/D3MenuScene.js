@@ -10,10 +10,11 @@ import {
 } from '@react-three/drei'
 import HexaBallCV from "./HexaBallCV"
 import {config, useSpring, useSpringRef} from "@react-spring/three";
-import {VRCanvas, DefaultXRControllers} from '@react-three/xr'
-import Skybox from "./skybox";
+import {VRCanvas, DefaultXRControllers,RayGrab, Interactive} from '@react-three/xr'
+
 import {Canvas, useLoader, useThree} from "@react-three/fiber";
 import {CubeTextureLoader, TextureLoader} from "three";
+
 
 export default function D3MenuScene() {
     const cam = [0, 2, 20];
@@ -53,7 +54,7 @@ export default function D3MenuScene() {
         scene.background = texture;
         return null;
     }
-
+const [hovered,setIsHovered] = useState(false);
     return <>
 
         <VRCanvas concurrent gl={{alpha: true}} pixelRatio={[1, 1.5]} VRCamera={{position: [0, 2, 10]}}
@@ -71,7 +72,13 @@ export default function D3MenuScene() {
                 <orthographicCamera attach="shadow-camera" left={-20} right={20} top={20} bottom={-20}/>
             </directionalLight>
             <Suspense fallback={null}>
+                <Interactive onSelect={() => console.log('clicked!')} onHover={() => setIsHovered(true)} onBlur={() => setIsHovered(false)}>
+
+
+                <RayGrab>
                 <HexaBallCV cam={cam} position={[0, -3.5, 0]}/>
+                </RayGrab>
+                </Interactive>
                 <Sky/>
                 <Environment preset="dawn"/>
             </Suspense>

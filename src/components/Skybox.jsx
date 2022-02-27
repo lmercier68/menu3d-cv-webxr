@@ -6,7 +6,7 @@ import * as THREE from "three";
 
 export default function Skybox({...props}) {
 
-    function Sky() {
+    const  Skybox=()=> {
         const {scene} = useThree();
         const loader = new CubeTextureLoader();
         console.log('scene ' + scene);
